@@ -105,6 +105,11 @@ class Listing < ActiveRecord::Base
     self.updates_email_at ||= Time.now
   end
 
+  before_create :add_uuid
+  def add_uuid
+    self.uuid ||= UUIDUtils.bin16_uuid
+  end
+
   before_validation do
     # Normalize browser line-breaks.
     # Reason: Some browsers send line-break as \r\n which counts for 2 characters making the
