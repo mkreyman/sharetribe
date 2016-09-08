@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907095103) do
+ActiveRecord::Schema.define(version: 20160908091353) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string   "token",            limit: 255
@@ -509,6 +509,7 @@ ActiveRecord::Schema.define(version: 20160907095103) do
   add_index "listing_units", ["listing_shape_id"], name: "index_listing_units_on_listing_shape_id", using: :btree
 
   create_table "listings", force: :cascade do |t|
+    t.binary   "uuid",                            limit: 16
     t.integer  "community_id",                    limit: 4,                         null: false
     t.string   "author_id",                       limit: 255
     t.string   "category_old",                    limit: 255
@@ -561,6 +562,7 @@ ActiveRecord::Schema.define(version: 20160907095103) do
   add_index "listings", ["listing_shape_id"], name: "index_listings_on_listing_shape_id", using: :btree
   add_index "listings", ["old_category_id"], name: "index_listings_on_category_id", using: :btree
   add_index "listings", ["open"], name: "index_listings_on_open", using: :btree
+  add_index "listings", ["uuid"], name: "uuid", unique: true, using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.float    "latitude",       limit: 24
